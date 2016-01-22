@@ -2,7 +2,7 @@
 	"name": "pasteandformat",
 	"displayName": "pasteandformat",
 	"description": "Paste and format with one command",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "spoeken",
 	"engines": {
 		"vscode": "^0.10.1"
