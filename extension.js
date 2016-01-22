@@ -28,39 +28,20 @@ function activate(context) {
             window.activeTextEditor.selection = selection; //Apply selection to editor
             
                 
-            
-            // Listen for selection change event, so that we can deselect after formatting
-            // This is really because of a bug in executeCommand
-            // which doesn't really wait for the command to finish before continuing.
-            // 'then' - apparently - only means: when the command has been called.
-                
-
-            var selectionChangeListener = window.onDidChangeTextEditorSelection(function (evt) {
-                console.log(evt);
-                console.log('kjsgadksjag daksjhd ');
-                //Place cursor at the end so the pasted text no longer is selected
-                // Find end of selection
-                var line = window.activeTextEditor.selection.end.line;
-                var character = window.activeTextEditor.selection.end.character;
-                //Set both start and end of selection to the same point so that nothing is selected
-                var newSelection = new vscode.Selection(line, character, line, character); // Create selection
-                window.activeTextEditor.selection = newSelection;
-                selectionChangeListener.dispose(); // Stop listening
-            });
             // Format selection, when text is selected, that text is the only thing that will be formatted
             vscode.commands.executeCommand('editor.action.format').then(function () {
-                // This is where I really would like the deselction to happen
-                // but i sruns before formatting is done, I've tried window.onDidChangeTextEditorSelection, but that doesn't seem to work properly eighther
+                // This is where I really would like the deselection to happen
+                // but it runs before formatting is done, I've tried window.onDidChangeTextEditorSelection, but that doesn't seem to work properly eighther
                 // Until issue #1775 is solved I just use a timeout. 
 
-                // setTimeout(function () {
-                //     // Hopefully the format command is done when this happens
-                //     var line = window.activeTextEditor.selection.end.line;
-                //     var character = window.activeTextEditor.selection.end.character;
-                //     //Set both start and end of selection to the same point so that nothing is selected
-                //     var newSelection = new vscode.Selection(line, character, line, character); // Create selection
-                //     window.activeTextEditor.selection = newSelection;
-                // }, 100);
+                setTimeout(function () {
+                    // Hopefully the format command is done when this happens
+                    var line = window.activeTextEditor.selection.end.line;
+                    var character = window.activeTextEditor.selection.end.character;
+                    //Set both start and end of selection to the same point so that nothing is selected
+                    var newSelection = new vscode.Selection(line, character, line, character); // Create selection
+                    window.activeTextEditor.selection = newSelection;
+                }, 100);
 
 
             });
