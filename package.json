@@ -22,7 +22,7 @@
             "when": "editorTextFocus"
         }]
 	},
-
+    
 	"devDependencies": {
 		"vscode": "0.10.x"
 	}
