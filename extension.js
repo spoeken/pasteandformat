@@ -12,11 +12,11 @@ function activate(context) {
             vscode.commands.executeCommand('workbench.action.markdown.togglePreview');
         } else {
             // Save current position
-            var start = window.activeTextEditor.selection.anchor;
+            var start = window.activeTextEditor.selection.active;
             // Paste from clipboard
             vscode.commands.executeCommand('editor.action.clipboardPasteAction').then(function () {
 
-                var end = window.activeTextEditor.selection.anchor; // Get position after paste
+                var end = window.activeTextEditor.selection.active; // Get position after paste
                 var selection = new vscode.Selection(start.line, start.character, end.line, end.character); // Create selection
                 window.activeTextEditor.selection = selection; // Apply selection to editor
                 
